@@ -1,48 +1,68 @@
-import React from "react";
+import React from "react"
+import PropTypes from "prop-types";
 
-function Food({name, picture}){
-   return (
-      <div>
-      <h2>I wana have {name}</h2>
-      <img src = {picture} />
-   </div>
-   )
-}
+
 
 
 const foodILike = [{
-    name : "noodle",
-    image : 
-    "https://thewoksoflife.com/wp-content/uploads/2020/04/homemade-chinese-egg-noodles-19.jpg"
-    
+   id: 1,
+   name: "kebap",
+   image: "https://media-cdn.tripadvisor.com/media/photo-s/10/46/40/75/sis-kebap.jpg",
 
-},
-{
-   name : "Fried Chicken",
-   image : 
-    "https://www.melissassouthernstylekitchen.com/wp-content/uploads/2019/02/SouthernFriedChicken002.jpg"
-},{
-   name : "beef",
-   image : 
-   "https://challengedairy.com/sites/default/files/recipe/images/recipe_roast_beef_with_tangy_mustard_sauce_2280.jpg"
 }, {
-   name : "kebap",
-   image : 
-   "https://c8.alamy.com/comp/W4TM45/dner-kebap-on-a-plate-W4TM45.jpg"
+   id: 2,
+   name: "fried rice",
+   image: "https://www.jessicagavin.com/wp-content/uploads/2018/09/fried-rice-8-1200.jpg",
+   rating: 4
+}, {
+   id: 3,
+   name: "bun cha",
+   image: "https://www.196flavors.com/wp-content/uploads/2019/02/bun-cha-2-FP.jpg",
+   rating: 5
+}]
+
+/*
+function renderFood(dish) {
+
+   return <Food name={dish.name} sky={dish.image} />
 }
- ]
+*/
 
-function App(){
-   
+
+function Food({ name, sky, rating }) {
    return (
-   <div>
-        <h1>Welcome !!</h1>
-        {foodILike.map(menu => <Food name={menu.name} picture ={menu.image}/> )}
-        
+      <div>
+         <h1>I like {name}</h1>
+         <img src={sky} alt={name} />
+         <h4>{rating}/5.0</h4>
+      </div>  /* image element는 alt prop이 있어야 한다. 
+      이는 시각 장애인들을 위한 것이다.*/
 
-   </div>
-   
+
    )
 }
+
+Food.propTypes = {
+   name: PropTypes.string.isRequired,
+   sky: PropTypes.string.isRequired,
+   rating: PropTypes.string
+};
+
+
+
+
+
+function App() {
+   return (
+      <div>
+         {foodILike.map(dish =>
+            <Food key={dish.id}
+               name={dish.name}
+               sky={dish.image}
+               rating={dish.rating} />)}
+      </div>
+   )
+}
+
 
 export default App;
