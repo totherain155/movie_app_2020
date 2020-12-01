@@ -7,23 +7,23 @@ class App extends React.Component {
    }
 
    add = () => {
-      console.log("add")
+      this.setState(current => ({ count: current.count + 1 }))
+
    }
 
    minus = () => {
-      console.log("minus")
+      this.setState({ count: this.state.count - 1 })
    }
 
    render() {
       return (
          <div>
-            <h3>the number is : {this.state.count}</h3>
+            <h3>my number is : {this.state.count}</h3>
             <button onClick={this.add}>add</button>
             <button onClick={this.minus}>minus</button>
          </div>
       )
    }
-
 }
 
 
