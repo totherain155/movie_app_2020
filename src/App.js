@@ -1,29 +1,34 @@
 import react from "react";
-
-
+import axios from "axios";
 
 class App extends react.Component {
-
    state = {
-      isLoading: true
+      isLoading: true,
+      movies: []
+   }
+
+   getMovies = async () => {
+      const { data: { data: { movies } } } = await axios.get("https://yts-proxy.nomadcoders1.now.sh/list_movies.json")
+      //console.log(movies);
+      this.setState({ movies, isLoading: false })
+      //setState에서 state에 있는 두 개의 상태를 변경하였다. 
    }
 
 
    componentDidMount() {
-      setTimeout(() => {
-         this.setState({ isLoading: false })
-      }, 5000)
+      this.getMovies();
    }
 
    render() {
-      return (<div>
-         <h3>{this.state.isLoading ? "please wait a litte more" : "welcome :)"}</h3>
-      </div>
+      const { isLoading } = this.state;
+      return (
+         <div>
+            {isLoading ? "just a second" : "hey there !"}
+         </div>
+
       )
    }
 }
-
-
 
 
 
