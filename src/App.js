@@ -1,44 +1,62 @@
 import react from "react";
 import axios from "axios";
 import Movie from "./movie";
+import "./App.css";
+
+
+// setState 에서 state 변경한 후 map을 이용하여 rendering 
 
 class App extends react.Component {
    state = {
       isLoading: true,
       movies: []
+
    }
+
+   //function getMovies 사용 
 
    getMovies = async () => {
-      const { data: { data: { movies } } } = await axios.get("https://yts-proxy.nomadcoders1.now.sh/list_movies.json?sort_by=rating")
-      //console.log(movies);
+
+
+      const { data: { data: { movies } } } = await axios.get("https://yts-proxy.nomadcoders1.now.sh/list_movies.json?sort_by=rating");
+      //  console.log(movies)
       this.setState({ movies, isLoading: false })
-      //setState에서 state에 있는 두 개의 상태를 변경하였다. 
    }
 
-
    componentDidMount() {
-      this.getMovies();
+      this.getMovies()
    }
 
    render() {
-      const { isLoading, movies } = this.state; //state로부터 movies를 가져와야 한다.
-      return (
-         <div>
-            {isLoading ? "just a second" : movies.map(movie =>
-               <Movie
-                  key={movie.id}
-                  id={movie.id}
-                  year={movie.year}
-                  title={movie.title}
-                  summary={movie.summary}
-                  poster={movie.medium_cover_image} />
-            )}
-         </div>
 
-      )
+      const { isLoading, movies } = this.state;
+      return (
+         <section class="container">
+            {isLoading ? (
+               <div class="loader">
+                  <span class="loader__text">Loading...</span>
+               </div>
+            ) : (
+                  <div class="movies">
+                     {movies.map(movie => (
+                        <Movie
+                           key={movie.id}
+                           id={movie.id}
+                           year={movie.year}
+                           title={movie.title}
+                           summary={movie.summary}
+                           poster={movie.medium_cover_image}
+                        />
+                     ))}
+                  </div>
+               )}
+         </section>
+
+
+
+
+      );
    }
 }
-
-
 
 export default App;
