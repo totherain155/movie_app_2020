@@ -7,29 +7,27 @@ function Movie({ title, year, summary, poster, genres }) {
         <div className="movie">
             <img src={poster} alt={title} title={title} />
             <div className="movie_data">
-                <h3 className="movie_title"> {title} </h3>
+                <h3 className="movie_title">{title}</h3>
                 <h4 className="movie_year">{year}</h4>
                 <ul className="genres">{genres.map((genre, index) =>
-                    <li key={index} className="genres_genre">
-                        {genre} </li>
-                )}</ul>
+                    <li key={index} className="genres_genre">{genre}</li>
+                )/* map에 있는 각각 item은 key가 필요하다*/}
+                </ul>
                 <p className="movie_summary">{summary}</p>
-
             </div>
         </div>
     )
 }
 
+
 Movie.propTypes = {
-    title: PropTypes.string.isRequired,
-
+    id: PropTypes.number,
     year: PropTypes.number.isRequired,
-    summary: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
     poster: PropTypes.string.isRequired,
+    summary: PropTypes.string.isRequired,
     genres: PropTypes.arrayOf(PropTypes.string).isRequired
-
 }
-
 
 
 export default Movie;
