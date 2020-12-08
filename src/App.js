@@ -1,49 +1,45 @@
+
 import React from "react";
 import axios from "axios";
 import Movie from "./movie";
+import "./App.css";
 
 
 class App extends React.Component {
-
    state = {
-      isLoader: true
+      isLoading: true,
+      movies: []
    }
+
 
    getMovies = async () => {
-      const { data:
-         { data:
-            { movies }
-         }
-      } = await axios.get("https://yts.mx/api/v2/list_movies.json?sort_by=rating")
-      //  console.log(movies)
-
-      this.setState({ movies: movies, isLoader: false })
+      const { data: { data: { movies } } } = await axios.get("https://yts-proxy.nomadcoders1.now.sh/list_movies.json?sort_by=rating")
+      //console.log(movies)
+      this.setState({ movies: movies, isLoading: false })
    }
+
 
    componentDidMount() {
-      this.getMovies();
+      this.getMovies()
    }
 
+
    render() {
-
-      const { isLoader, movies } = this.state
-
+      const { isLoading, movies } = this.state
       return (
          <section className="container">
-            {isLoader ?
-               <div className="Loader">
-                  <span className="loader_text">Loading...</span>
-               </div>
-               :
-               <div className="movies">
+            {isLoading ? <div className="loader">
+               <span className="loader_text">Loading...</span>
+            </div> : <div className="movies">
                   {movies.map(art =>
-                     <Movie
-                        key={art.id}
+                     <Movie key={art.id}
+                        id={art.id}
                         title={art.title}
                         year={art.year}
                         summary={art.summary}
                         poster={art.medium_cover_image}
                         genres={art.genres}
+
                      />
                   )}
                </div>
@@ -51,6 +47,7 @@ class App extends React.Component {
          </section>
       )
    }
+
 }
 
 
