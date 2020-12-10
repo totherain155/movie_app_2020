@@ -1,15 +1,23 @@
 import React from "react";
 import { HashRouter, Route } from "react-router-dom";
-import potato from "./routes/About.js"
-import home from "./routes/Home.js"
+import home from "./routes/Home";
+import about from "./routes/About"
+import Navigation from "./components/Navigation"
 
 
 function App() {
-   return <HashRouter>
-      <Route path="/" exact={true} component={home} />
-      <Route path="/about" component={potato} />
-   </HashRouter>
+   return (
+      <HashRouter>
+         <Navigation />
+         <Route path="/" exact={true} component={home} />
+         <Route path="/about" component={about} />
+
+
+      </HashRouter>
+
+   )
 }
+
 
 
 export default App;
